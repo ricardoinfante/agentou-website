@@ -54,8 +54,8 @@ export default function Hero() {
 
           <motion.h1
             variants={item}
-            className="font-bold text-[var(--color-white)] uppercase leading-[0.95] tracking-[-0.04em] mb-6 whitespace-nowrap"
-            style={{ fontSize: 'clamp(20px, 2.8vw, 44px)' }}
+            className="font-bold text-[var(--color-white)] uppercase leading-[0.95] tracking-[-0.04em] mb-6"
+            style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}
           >
             Resultados em dias,{' '}
             <span className="text-[var(--color-orange)]">não meses.</span>
