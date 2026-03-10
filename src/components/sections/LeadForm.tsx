@@ -63,7 +63,12 @@ export default function LeadForm() {
   }
 
   return (
-    <SectionWrapper id="contato" className="bg-[var(--color-navy)] border-t border-[var(--color-lead)]">
+    <SectionWrapper id="contato" className="relative overflow-hidden bg-[var(--color-navy)] border-t border-[var(--color-lead)]">
+      <div
+        aria-hidden
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(196,90,44,0.08) 0%, transparent 70%)', filter: 'blur(60px)' }}
+      />
       <div className="grid lg:grid-cols-2 gap-16 items-start">
         {/* Left: headline */}
         <div>
@@ -77,15 +82,14 @@ export default function LeadForm() {
             Comece agora
           </motion.p>
           <motion.h2
-            className="text-4xl md:text-5xl font-bold text-[var(--color-white)] uppercase mb-6"
+            className="font-bold text-[var(--color-white)] uppercase leading-[0.95] tracking-[-0.04em] mb-6"
+            style={{ fontSize: 'clamp(36px, 5vw, 72px)' }}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.05 }}
           >
-            Vamos
-            <br />
-            <span className="text-[var(--color-orange)]">conversar?</span>
+            Vamos <span className="text-[var(--color-orange)]">conversar?</span>
           </motion.h2>
           <motion.p
             className="text-[var(--color-white)]/60 text-base leading-relaxed"
@@ -211,9 +215,9 @@ export default function LeadForm() {
 }
 
 function inputClass(hasError: boolean) {
-  return `w-full bg-[var(--color-lead)]/30 border ${
-    hasError ? 'border-red-500/70' : 'border-[var(--color-lead)]'
-  } text-[var(--color-white)] placeholder:text-[var(--color-white)]/30 px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-orange)] transition-colors duration-200`
+  return `w-full bg-white/[0.04] border ${
+    hasError ? 'border-red-500/70' : 'border-[var(--color-orange)]/20'
+  } text-[var(--color-white)] placeholder:text-[var(--color-white)]/30 px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-orange)] focus:bg-white/[0.06] backdrop-blur-[8px] transition-[border-color,background] duration-200`
 }
 
 function Field({
