@@ -178,9 +178,9 @@ export default function LeadForm() {
                     onChange={(e) => setForm({ ...form, segment: e.target.value })}
                     className={inputClass(!!errors.segment)}
                   >
-                    <option value="">Selecione...</option>
+                    <option value="" className="bg-[var(--color-navy)] text-[var(--color-white)]">Selecione...</option>
                     {segments.map((s) => (
-                      <option key={s} value={s}>{s}</option>
+                      <option key={s} value={s} className="bg-[var(--color-navy)] text-[var(--color-white)]">{s}</option>
                     ))}
                   </select>
                 }
