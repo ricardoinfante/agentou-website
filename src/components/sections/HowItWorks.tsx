@@ -45,7 +45,12 @@ export default function HowItWorks() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <SectionWrapper id="como-funciona" className="bg-[var(--color-navy)]">
+    <SectionWrapper id="como-funciona" className="relative bg-[var(--color-navy)] overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(196,90,44,0.08) 0%, transparent 70%)', filter: 'blur(70px)' }}
+      />
       {/* Header */}
       <motion.p
         className="text-[var(--color-orange)] text-sm font-semibold tracking-[0.1em] uppercase mb-4"
@@ -77,11 +82,19 @@ export default function HowItWorks() {
           return (
             <motion.div
               key={phase.label}
-              className="group relative flex flex-col p-8 lg:p-10 bg-[var(--color-lead)]/20 cursor-default"
+              className="group relative flex flex-col p-8 lg:p-10 border border-[var(--color-orange)]/[0.12] bg-white/[0.03] backdrop-blur-[12px] overflow-hidden cursor-default"
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: i * 0.2, duration: 0.3 }}
             >
+              {/* Top-border glow */}
+              <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-orange)]/40 to-transparent" />
+              {/* Corner glow */}
+              <div
+                aria-hidden
+                className="absolute -bottom-12 -right-12 w-40 h-40 rounded-full pointer-events-none"
+                style={{ background: 'radial-gradient(circle, rgba(196,90,44,0.12) 0%, transparent 70%)' }}
+              />
               {/* Separator — diagonal SVG, right edge, visible on lg, not on last card */}
               {i < phases.length - 1 && (
                 <div className="hidden lg:block absolute top-0 bottom-0 right-0 w-6 overflow-hidden">
