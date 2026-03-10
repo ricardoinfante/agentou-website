@@ -19,6 +19,16 @@ const page = await browser.newPage()
 await page.setViewportSize({ width: 1440, height: 900 })
 await page.goto(url, { waitUntil: 'networkidle' })
 await page.waitForTimeout(1500)
+
+// Scroll through the page to trigger whileInView animations
+const pageHeight = await page.evaluate(() => document.documentElement.scrollHeight)
+for (let y = 0; y <= pageHeight; y += 400) {
+  await page.evaluate((scrollY) => window.scrollTo(0, scrollY), y)
+  await page.waitForTimeout(120)
+}
+await page.evaluate(() => window.scrollTo(0, 0))
+await page.waitForTimeout(600)
+
 await page.screenshot({ path: outFile, fullPage: true })
 await browser.close()
 
