@@ -31,8 +31,15 @@ export default function Hero() {
       {/* Radial glow */}
       <div
         aria-hidden
-        className="absolute top-1/4 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(196,90,44,0.08) 0%, transparent 70%)' }}
+        className="absolute top-1/4 right-0 w-[700px] h-[700px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(196,90,44,0.15) 0%, transparent 70%)' }}
+      />
+
+      {/* Second blob — bottom-left depth */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(196,90,44,0.07) 0%, transparent 70%)', filter: 'blur(60px)' }}
       />
 
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-16 xl:px-24 w-full grid lg:grid-cols-2 gap-16 items-center py-20">
@@ -47,12 +54,10 @@ export default function Hero() {
 
           <motion.h1
             variants={item}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-[var(--color-white)] uppercase mb-6"
+            className="font-bold text-[var(--color-white)] uppercase leading-[0.95] tracking-[-0.04em] mb-6 whitespace-nowrap"
+            style={{ fontSize: 'clamp(20px, 2.8vw, 44px)' }}
           >
-            Resultados
-            <br />
-            em dias,
-            <br />
+            Resultados em dias,{' '}
             <span className="text-[var(--color-orange)]">não meses.</span>
           </motion.h1>
 
