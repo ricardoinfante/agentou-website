@@ -1,7 +1,7 @@
 import Logo from '@/components/brand/Logo'
 import { MessageCircle } from 'lucide-react'
 
-const WHATSAPP_NUMBER = '5511999999999' // Replace with real number
+const WHATSAPP_NUMBER = '5562996741085'
 
 export default function Footer() {
   return (

@@ -5,8 +5,7 @@ import { motion } from 'motion/react'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 import SectionWrapper from '@/components/ui/SectionWrapper'
 
-// IMPORTANT: Replace with the actual AGENTOU WhatsApp number (only digits, with country code: 5511999999999)
-const WHATSAPP_NUMBER = '5511999999999'
+const WHATSAPP_NUMBER = '5562996741085'
 
 const segments = [
   'Clínica / Saúde',
