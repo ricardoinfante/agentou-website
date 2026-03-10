@@ -2,35 +2,53 @@
 
 import { motion, useInView } from 'motion/react'
 import { useRef } from 'react'
-import { MessageSquare, Rocket, TrendingUp } from 'lucide-react'
+import { Search, Map, Wrench, Zap } from 'lucide-react'
 import SectionWrapper from '@/components/ui/SectionWrapper'
 
-const steps = [
+const phases = [
   {
-    icon: MessageSquare,
-    label: 'Conversa de 30min',
-    sub: 'Sem compromisso. Sem jargão.',
+    number: '01',
+    label: 'Diagnóstico',
+    title: 'Encontramos o gargalo',
+    body: 'Entendemos como seu negócio funciona hoje e identificamos onde você perde mais tempo ou dinheiro.',
+    icon: Search,
+    pulse: true,
   },
   {
-    icon: Rocket,
-    label: 'Solução em até 10 dias',
-    sub: 'Testada e documentada.',
+    number: '02',
+    label: 'Estratégia',
+    title: 'Definimos o que construir',
+    body: 'Nada de plano gigante. Escolhemos a solução de maior impacto e menor risco para começar.',
+    icon: Map,
+    pulse: false,
   },
   {
-    icon: TrendingUp,
-    label: 'Resultado na semana 1',
-    sub: 'Ou continuamos ajustando.',
+    number: '03',
+    label: 'Desenvolvimento',
+    title: 'Construímos e entregamos',
+    body: 'Você recebe algo funcionando no seu fluxo real — integrado, testado e com manual de uso.',
+    icon: Wrench,
+    pulse: false,
+  },
+  {
+    number: '04',
+    label: 'Integração',
+    title: 'Fazemos funcionar de verdade',
+    body: 'Treinamos quem vai usar, ajustamos o que precisar e garantimos que o resultado apareça.',
+    icon: Zap,
+    pulse: false,
   },
 ]
 
 export default function HowItWorks() {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
     <SectionWrapper id="como-funciona" className="bg-[var(--color-navy)]">
+      {/* Header */}
       <motion.p
-        className="text-[var(--color-orange)] text-sm font-semibold tracking-[0.1em] uppercase mb-3"
+        className="text-[var(--color-orange)] text-sm font-semibold tracking-[0.1em] uppercase mb-4"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -39,7 +57,7 @@ export default function HowItWorks() {
         Como funciona
       </motion.p>
       <motion.h2
-        className="text-3xl md:text-4xl font-bold text-[var(--color-white)] mb-16 max-w-lg"
+        className="text-5xl md:text-6xl lg:text-7xl font-bold text-[var(--color-white)] leading-[0.95] mb-16"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -48,77 +66,118 @@ export default function HowItWorks() {
         Simples assim. Do zero ao funcionando.
       </motion.h2>
 
-      {/* Flow diagram */}
-      <div ref={ref} className="relative flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-0">
-        {steps.map((step, i) => {
-          const Icon = step.icon
-          return (
-            <div key={step.label} className="flex flex-col lg:flex-row items-center flex-1">
-              {/* Node */}
-              <motion.div
-                className="flex flex-col items-center text-center"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ type: 'spring', stiffness: 100, damping: 18, delay: i * 0.2 }}
-              >
-                <div className="relative mb-5">
-                  {/* Outer pulse ring */}
-                  <motion.div
-                    className="absolute inset-0 rounded-full border border-[var(--color-orange)]/30"
-                    animate={inView ? { scale: [1, 1.3, 1], opacity: [0.3, 0, 0.3] } : {}}
-                    transition={{ delay: 0.8 + i * 0.2, duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                  />
-                  <div className="w-20 h-20 rounded-full bg-[var(--color-orange)]/10 border border-[var(--color-orange)]/40 flex items-center justify-center">
-                    <Icon size={28} strokeWidth={1.5} className="text-[var(--color-orange)]" />
-                  </div>
-                  {/* Step number */}
-                  <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[var(--color-orange)] flex items-center justify-center text-[10px] font-bold text-white">
-                    {i + 1}
-                  </div>
-                </div>
-                <p className="font-bold text-[var(--color-white)] text-base mb-1 max-w-[140px] leading-tight">
-                  {step.label}
-                </p>
-                <p className="text-sm text-[var(--color-white)]/50">{step.sub}</p>
-              </motion.div>
+      {/* Cards grid */}
+      <div
+        ref={ref}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0"
+      >
+        {phases.map((phase, i) => {
+          const Icon = phase.icon
 
-              {/* Connector line (between nodes, not after last) */}
-              {i < steps.length - 1 && (
-                <div className="flex items-center justify-center lg:flex-1 my-4 lg:my-0 lg:mx-4">
-                  <svg
-                    className="hidden lg:block w-full h-4"
-                    viewBox="0 0 100 8"
-                    preserveAspectRatio="none"
-                    fill="none"
-                  >
-                    <motion.path
-                      d="M0 4 L100 4"
-                      stroke="var(--color-orange)"
-                      strokeWidth="1.5"
-                      strokeDasharray="4 4"
-                      strokeOpacity="0.5"
-                      initial={{ pathLength: 0 }}
-                      animate={inView ? { pathLength: 1 } : {}}
-                      transition={{ delay: 0.4 + i * 0.2, duration: 0.6 }}
-                    />
-                  </svg>
-                  <svg className="block lg:hidden w-4 h-8" viewBox="0 0 8 40" fill="none">
-                    <motion.path
-                      d="M4 0 L4 40"
-                      stroke="var(--color-orange)"
-                      strokeWidth="1.5"
-                      strokeDasharray="4 4"
-                      strokeOpacity="0.5"
-                      initial={{ pathLength: 0 }}
-                      animate={inView ? { pathLength: 1 } : {}}
-                      transition={{ delay: 0.4 + i * 0.2, duration: 0.6 }}
-                    />
+          return (
+            <motion.div
+              key={phase.label}
+              className="group relative flex flex-col p-8 lg:p-10 bg-[var(--color-lead)]/20 cursor-default"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ delay: i * 0.2, duration: 0.3 }}
+            >
+              {/* Separator — diagonal SVG, right edge, visible on lg, not on last card */}
+              {i < phases.length - 1 && (
+                <div className="hidden lg:block absolute top-0 bottom-0 right-0 w-6 overflow-hidden">
+                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 24 100" preserveAspectRatio="none" fill="none">
+                    <line x1="6" y1="0" x2="18" y2="100" stroke="var(--color-lead)" strokeWidth="1" strokeOpacity="0.4" />
                   </svg>
                 </div>
               )}
-            </div>
+
+              {/* Top row: number + icon */}
+              <div className="flex items-start justify-between mb-6">
+                {/* Number with optional pulse ring */}
+                <div className="relative">
+                  {phase.pulse && (
+                    <motion.div
+                      className="absolute inset-0 rounded-sm border border-[var(--color-orange)]/40"
+                      animate={inView ? {
+                        scale: [1, 1.15, 1],
+                        opacity: [0.4, 0, 0.4],
+                      } : {}}
+                      transition={{ delay: 1.2, duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    />
+                  )}
+                  <motion.span
+                    className="block text-[64px] font-bold text-[var(--color-orange)] leading-none tracking-[-0.04em]"
+                    initial={{ opacity: 0, y: -16 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 100, damping: 18, delay: i * 0.2 }}
+                  >
+                    {phase.number}
+                  </motion.span>
+                </div>
+
+                {/* Icon — decorative, brightens on hover */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : {}}
+                  transition={{ delay: i * 0.2 + 0.05, duration: 0.4 }}
+                >
+                  <Icon
+                    size={20}
+                    strokeWidth={1.5}
+                    className="text-[var(--color-orange)]/40 transition-colors duration-300 group-hover:text-[var(--color-orange)]"
+                  />
+                </motion.div>
+              </div>
+
+              {/* Label */}
+              <motion.span
+                className="text-[12px] font-semibold tracking-widest uppercase text-[var(--color-orange)] mb-3"
+                initial={{ opacity: 0, y: -12 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ type: 'spring', stiffness: 100, damping: 18, delay: i * 0.2 + 0.12 }}
+              >
+                {phase.label}
+              </motion.span>
+
+              {/* Title — 24px = text-2xl */}
+              <motion.h3
+                className="text-2xl font-bold text-[var(--color-white)] leading-tight mb-3"
+                initial={{ opacity: 0, y: -12 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ type: 'spring', stiffness: 100, damping: 18, delay: i * 0.2 + 0.24 }}
+              >
+                {phase.title}
+              </motion.h3>
+
+              {/* Body — 14px, white/70, line-height 1.4 */}
+              <motion.p
+                className="text-sm text-[var(--color-white)]/70 leading-[1.4]"
+                initial={{ opacity: 0, y: -8 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ type: 'spring', stiffness: 100, damping: 18, delay: i * 0.2 + 0.36 }}
+              >
+                {phase.body}
+              </motion.p>
+            </motion.div>
           )
         })}
+      </div>
+
+      {/* Connecting line — animates after all cards have entered */}
+      <div className="hidden lg:block relative mt-8 px-10">
+        <svg className="w-full h-4" viewBox="0 0 100 4" preserveAspectRatio="none" fill="none">
+          <motion.path
+            d="M0 2 L100 2"
+            stroke="var(--color-orange)"
+            strokeWidth="0.5"
+            strokeDasharray="3 3"
+            strokeOpacity="0.3"
+            initial={{ pathLength: 0 }}
+            animate={inView ? { pathLength: 1 } : {}}
+            transition={{ delay: 0.8, duration: 1, ease: 'easeInOut' }}
+          />
+        </svg>
       </div>
     </SectionWrapper>
   )
