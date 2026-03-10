@@ -22,9 +22,9 @@ export default function Logo({ variant = 'wordmark', height = 32, className = ''
 
   return (
     <Image
-      src="/logo.png"
+      src="/logo.svg"
       alt="AGENTOU"
-      width={Math.round(height * 4.5)}
+      width={Math.round(height * 6.8)}
       height={height}
       className={className}
       priority
