@@ -28,9 +28,14 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <SectionWrapper className="bg-[var(--color-navy)]">
+    <SectionWrapper className="relative bg-[var(--color-navy)] overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute bottom-0 right-0 w-[450px] h-[450px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(196,90,44,0.08) 0%, transparent 70%)', filter: 'blur(70px)' }}
+      />
       <motion.p
-        className="text-[var(--color-orange)] text-sm font-semibold tracking-[0.1em] uppercase mb-3"
+        className="text-[var(--color-orange)] text-sm font-semibold tracking-[0.1em] uppercase mb-4"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -39,13 +44,14 @@ export default function FAQ() {
         Perguntas frequentes
       </motion.p>
       <motion.h2
-        className="text-3xl md:text-4xl font-bold text-[var(--color-white)] mb-12 max-w-lg"
+        className="font-bold text-[var(--color-white)] uppercase leading-[0.95] tracking-[-0.04em] mb-12"
+        style={{ fontSize: 'clamp(36px, 5vw, 72px)' }}
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.05 }}
       >
-        Tirando as dúvidas antes de começar.
+        Tire suas dúvidas antes de começar.
       </motion.h2>
 
       <div className="max-w-2xl space-y-2">
@@ -56,8 +62,13 @@ export default function FAQ() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 100, damping: 20, delay: i * 0.07 }}
-            className={`border ${open === i ? 'border-[var(--color-orange)]/50 border-l-[var(--color-orange)] border-l-2' : 'border-[var(--color-lead)]'} transition-colors duration-200`}
+            className={`relative border backdrop-blur-[8px] bg-white/[0.02] overflow-hidden ${
+              open === i
+                ? 'border-[var(--color-orange)]/50 border-l-[var(--color-orange)] [border-left-width:2px]'
+                : 'border-[var(--color-orange)]/[0.12]'
+            } transition-colors duration-200`}
           >
+            <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-orange)]/30 to-transparent" />
             <button
               onClick={() => setOpen(open === i ? null : i)}
               className="w-full flex items-center justify-between px-6 py-5 text-left gap-4 group"
